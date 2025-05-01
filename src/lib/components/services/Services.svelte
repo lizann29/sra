@@ -64,9 +64,9 @@
 	// Image carousel state
 	let currentImageIndex = 0;
 	const placeholderImages = [
-		{ name: 'work1', color: '#2d5d94' },
-		{ name: 'work2', color: '#2980b9' },
-		{ name: 'work3', color: '#3498db' }
+		{ name: 'img', color: '#2d5d94' },
+		{ name: 'img', color: '#2980b9' },
+		{ name: 'img', color: '#3498db' }
 	];
 
 	// Animation controls
