@@ -6,8 +6,8 @@ const config = {
 	kit: {
 		adapter: adapter({
 			// სტატიკური ადაპტერის ოპციები
-			pages: 'build',
-			assets: 'build',
+			pages: 'docs',
+			assets: 'docs',
 			fallback: 'index.html',
 			precompress: false
 		}),
