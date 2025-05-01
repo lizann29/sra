@@ -1,18 +1,15 @@
-import adapter from '@sveltejs/adapter-static'; // შეცვალეთ adapter-auto -> adapter-static
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
+/** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
-			// სტატიკური ადაპტერის ოპციები
-			pages: 'docs',
-			assets: 'docs',
-			fallback: 'index.html',
-			precompress: false
+			fallback: 'index.html'
 		}),
 		paths: {
-			base: '/sra' // შეცვალეთ 'sra' თქვენი GitHub რეპოზიტორიის სახელით
+			base: '/sra'
 		}
 	}
 };
