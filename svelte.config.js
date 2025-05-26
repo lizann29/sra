@@ -5,19 +5,9 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: adapter({
-			pages: 'build',
-			assets: 'build',
-			fallback: undefined, // Remove fallback for GitHub Pages
-			precompress: false,
-			strict: true
-		}),
+		adapter: adapter(),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '/sra' : ''
-		},
-		prerender: {
-			handleHttpError: 'warn',
-			handleMissingId: 'warn'
+			base: '/sra'
 		}
 	}
 };
