@@ -1,0 +1,1 @@
+import{t as a,a as r}from"../chunks/BHaW5Gs2.js";import"../chunks/DI-G8p3R.js";var o=a('<div class="flex items-center justify-center h-screen bg-gray-100"><img src="/logo/sra.svg" alt=""></div>');function s(e){var t=o();r(e,t)}function c(e){s(e)}export{c as component};
