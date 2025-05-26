@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Quality from '$lib/components/quality/Quality.svelte';
-	import AboutUs from '$lib/components/AboutUs.svelte';
-	import Partners from '$lib/components/Partners/Partners.svelte';
-	import Advantages from '$lib/components/Advantages.svelte';
+	import AboutUs from '$lib/components/about-us/AboutUs.svelte';
+	import Advantages from '$lib/components/advantages/Advantages.svelte';
 	import Services from '$lib/components/services/Services.svelte';
 </script>
 
@@ -21,9 +20,9 @@
 		<Advantages/>
 	</div>
 
-	<div id="partners-section">
-		<Partners />
-	</div>
+<!--	<div id="partners-section">-->
+<!--		<Partners />-->
+<!--	</div>-->
 </div>
 
 <style>

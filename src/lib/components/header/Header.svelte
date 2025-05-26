@@ -2,13 +2,14 @@
 <script lang="ts">
 	import LanguageSwitcher from '$lib/components/language-switcher/LanguageSwitcher.svelte';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 
 	const navItems = $state([
-		{ title: 'Services', path: '/' },
-		{ title: 'Projects', path: '/projects' },
-		{ title: 'About Company', path: '/' },
-		{ title: 'Partners', path: '/' },
-		{ title: 'Contacts', path: '/' }
+		{ title: 'Services', path: `/` },
+		{ title: 'Projects', path: `/projects` },
+		{ title: 'About Company', path: `/` },
+		{ title: 'Partners', path: `/` },
+		{ title: 'Contacts', path: `/` }
 	]);
 
 	// Mobile menu state
@@ -48,19 +49,21 @@
 	});
 </script>
 
-<header class="fixed w-full z-50 transition-all duration-300 ease-in-out"
-				class:bg-blue-600={isScrolled}
-				class:bg-gradient-to-l={!isScrolled}
-				class:from-blue-600={!isScrolled}
-				class:to-blue-100={!isScrolled}
-				class:shadow-lg={isScrolled}>
+<header
+	class="fixed w-full z-50 transition-all duration-300 ease-in-out"
+	class:bg-[#89c2d9]={isScrolled}
+	class:bg-gradient-to-l={!isScrolled}
+	class:from-[#f6d365]={!isScrolled}
+	class:to-[#fda085]={!isScrolled}
+	class:shadow-lg={isScrolled}
+>
 	<div class="container mx-auto px-4">
 		<div class="flex justify-between items-center h-20">
 			<!-- Logo -->
 			<div class="flex-shrink-0">
 				<a href="/" class={`text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-800' : 'text-gray-700'}`}>
 					<img
-						src="/logo/logo.png"
+						src="../logo/sra.png"
 						alt="Company Logo"
 						class="h-20 md:h-25 w-auto object-contain"
 					>
@@ -68,20 +71,18 @@
 			</div>
 
 			<!-- Desktop Navigation -->
-			<nav class="hidden lg:flex space-x-8">
+			<nav class="hidden lg:flex space-x-8 align-middle content-center items-center">
 				{#each navItems as item}
 					<a
-
-					href={item.path}
-					class={`transition-colors hover:text-amber-600 ${isScrolled ? 'text-gray-700' : 'text-gray-600'}`}
+						href={item.path}
+						class={`transition-colors hover:text-amber-600 ${isScrolled ? 'text-gray-700' : 'text-gray-800'}`}
 					>
-					{item.title}
+						{item.title}
 					</a>
 				{/each}
 				<a
-
-				href="/client"
-				class="bg-amber-500 hover:bg-amber-600 text-white px-5 py-2 rounded-md transition-colors"
+					href="/client"
+					class="bg-amber-500 hover:bg-amber-600 text-white px-5 py-2 rounded-md transition-colors"
 				>
 					Become a client
 				</a>
@@ -100,9 +101,9 @@
 			>
 				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					{#if isMenuOpen}
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 					{:else}
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 					{/if}
 				</svg>
 			</button>
@@ -113,24 +114,23 @@
 			<div class={`lg:hidden py-4 pb-6 border-t ${isScrolled ? 'border-gray-200' : 'border-gray-100'}`}>
 				<nav class="flex flex-col space-y-4">
 					{#each navItems as item}
-             <a
-						href={item.path}
-						class={`hover:text-amber-600 py-2 transition-colors ${isScrolled ? 'text-gray-700' : 'text-gray-600'}`}
-						on:click={() => isMenuOpen = false}
+						<a
+							href={item.path}
+							class={`hover:text-amber-600 py-2 transition-colors ${isScrolled ? 'text-gray-700' : 'text-gray-800'}`}
+							on:click={() => isMenuOpen = false}
 						>
-						{item.title}
+							{item.title}
 						</a>
 					{/each}
 					<a
-
-					href="/client"
-					class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors w-full text-center mt-4"
-					on:click={() => isMenuOpen = false}
+						href="/client"
+						class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors w-full text-center mt-4"
+						on:click={() => isMenuOpen = false}
 					>
 						Become a client
 					</a>
 
-					<!-- Languaage Switcher (Mobile) -->
+					<!-- Language Switcher (Mobile) -->
 					<div class="pt-2">
 						<LanguageSwitcher />
 					</div>

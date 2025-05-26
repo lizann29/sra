@@ -3,84 +3,104 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
 
-	// Services data with English text
+	// Services data with icons
 	const services = [
 		{
-			id: 'hvac',
-			title: 'HVAC (Heating, Ventilation, Air Conditioning)',
-			shortTitle: 'HVAC Systems',
-			description: 'HVAC is a vital system that ensures a comfortable indoor environment and regulates the necessary conditions in the building. A crucial aspect of integrating HVAC systems is selecting the right equipment and accurately calculating airflows. Our service provides complete "turnkey" services, allowing clients to monitor the integration process.',
-			active: true
+			id: 'plumbing',
+			title: 'Plumbing System Installations',
+			shortTitle: 'Plumbing Systems',
+			description: 'We design and install reliable plumbing systems for residential, commercial, and industrial buildings, ensuring optimal water distribution and waste management.',
+			image: 'plumbing.jpg',
+			icon: '🔧'
 		},
 		{
-			id: 'smoke',
-			title: 'Smoke Extraction Systems',
-			shortTitle: 'Smoke Extraction',
-			description: 'Smoke extraction systems provide a critically important level of safety during fires. Our professional team designs, installs, and services these systems in accordance with the highest international standards.',
-			active: false
+			id: 'heatingcooling',
+			title: 'Heating and Cooling System Installations',
+			shortTitle: 'Heating & Cooling',
+			description: 'Our team provides efficient heating and cooling solutions tailored to your building\'s needs, using modern and energy-saving technologies.',
+			image: 'heating.png',
+			icon: '❄️'
 		},
 		{
-			id: 'firefighting',
-			title: 'Fire Safety Systems',
-			shortTitle: 'Fire Safety',
-			description: 'We offer fire safety systems equipped with modern technologies that comply with international safety standards and provide maximum protection for your facility.',
-			active: false
+			id: 'ventilation',
+			title: 'Ventilation System Installations',
+			shortTitle: 'Ventilation',
+			description: 'We implement ventilation systems that ensure clean air circulation, maintaining indoor air quality and comfort in all environments.',
+			image: 'vintilation.png',
+			icon: '💨'
 		},
 		{
-			id: 'bms',
-			title: 'Building Management System (BMS)',
-			shortTitle: 'BMS',
-			description: 'Building management systems allow you to control and optimize all technical systems in your building from a centralized platform, significantly increasing energy efficiency and reducing operating costs.',
-			active: false
+			id: 'fireextinguishing',
+			title: 'Fire Extinguishing System Installations',
+			shortTitle: 'Fire Extinguishing',
+			description: 'We install certified fire suppression systems, including sprinklers and extinguishing networks, in compliance with safety regulations and standards.',
+			image: 'firesystem.png',
+			icon: '🧯'
 		},
 		{
-			id: 'security',
-			title: 'Security Systems',
-			shortTitle: 'Security',
-			description: 'Our company offers security systems equipped with the latest technologies, including video surveillance, access control, and intrusion detectors, ensuring maximum protection for your facility and personnel.',
-			active: false
+			id: 'vrfac',
+			title: 'VRF and Air Conditioning System Installations',
+			shortTitle: 'VRF & AC Systems',
+			description: 'Our VRF and air conditioning systems offer flexible, energy-efficient climate control for buildings of any size or complexity.',
+			image: 'vrfsystem.png',
+			icon: '🌡️'
 		},
 		{
-			id: 'it',
-			title: 'IT and Telecommunications',
-			shortTitle: 'IT & Telecom',
-			description: 'Reliable IT infrastructure is essential for modern businesses. Our specialists provide installation of network systems, server infrastructure, and communication platforms that fully meet the requirements of your organization.',
-			active: false
+			id: 'siphonic',
+			title: 'Siphonic Rainwater Drainage System Installations',
+			shortTitle: 'Rainwater Drainage',
+			description: 'We design and install siphonic systems for rapid and efficient rainwater drainage from roofs, minimizing pipework and maximizing flow.',
+			image: 'rainwater.png',
+			icon: '💧'
+		},
+		{
+			id: 'passivefire',
+			title: 'Passive Fire Protection System Installations',
+			shortTitle: 'Passive Fire Protection',
+			description: 'We apply passive fire stopping solutions to contain fire and smoke, ensuring the integrity of building compartments and compliance with fire codes.',
+			image: 'passiveFireProtectionSystem.png',
+			icon: '🛡️'
+		},
+		{
+			id: 'electrical',
+			title: 'Electrical System Installations',
+			shortTitle: 'Electrical Systems',
+			description: 'We provide comprehensive electrical installations, from lighting and power distribution to smart building integrations, all adhering to international safety standards.',
+			image: 'electricalInstallation.png',
+			icon: '⚡'
 		}
 	];
 
 	// Use a reactive variable to store the active service ID
-	let activeServiceId = 'hvac';
+	let activeServiceId = 'plumbing';
+	let isTransitioning = false;
+	let activeIndex = 0;
 
 	// Derive active service from the ID
 	$: activeService = services.find(s => s.id === activeServiceId) || services[0];
 
-	// Set active service function
-	function setActiveService(service) {
-		activeServiceId = service.id;
-	}
+	// Set active service function with transition handling
+	function setActiveService(service, index) {
+		if (service.id === activeServiceId) return;
 
-	// Image carousel state
-	let currentImageIndex = 0;
-	const placeholderImages = [
-		{ name: 'img', color: '#2d5d94' },
-		{ name: 'img', color: '#2980b9' },
-		{ name: 'img', color: '#3498db' }
-	];
+		isTransitioning = true;
+		setTimeout(() => {
+			activeServiceId = service.id;
+			activeIndex = index;
+			isTransitioning = false;
+		}, 300);
+	}
 
 	// Animation controls
 	let zoomProgress = tweened(0, {
-		duration: 8000,
+		duration: 10000,
 		easing: cubicOut
 	});
 
 	let sliderInterval;
-
-	// Image slider functions
-	function nextImage() {
-		currentImageIndex = (currentImageIndex + 1) % placeholderImages.length;
-	}
+	let autoRotateInterval;
 
 	function startZoomCycle() {
 		zoomProgress.set(0);
@@ -88,91 +108,131 @@
 	}
 
 	onMount(() => {
-		// Start the image slider
+		// Start the zoom animation cycle
 		sliderInterval = setInterval(() => {
-			nextImage();
 			startZoomCycle();
-		}, 8000);
+		}, 10000);
+
+		// Auto-rotate services
+		autoRotateInterval = setInterval(() => {
+			const nextIndex = (activeIndex + 1) % services.length;
+			setActiveService(services[nextIndex], nextIndex);
+		}, 12000);
 
 		// Initial zoom animation
 		startZoomCycle();
 
 		return () => {
 			clearInterval(sliderInterval);
+			clearInterval(autoRotateInterval);
 		};
 	});
 
 	onDestroy(() => {
 		clearInterval(sliderInterval);
+		clearInterval(autoRotateInterval);
 	});
 
 	// Calculate dynamic scale based on zoom progress
-	$: zoomScale = 1 + ($zoomProgress * 0.1);
+	$: zoomScale = 1 + ($zoomProgress * 0.15);
 </script>
 
-<div class="w-full bg-[#F2F7FB] py-12">
+<div class="w-full bg-gradient-to-b from-blue-50 to-blue-100 py-16">
 	<div class="container mx-auto px-4 md:px-6 lg:px-8">
-		<h2 class="text-4xl font-bold text-[#2d5d94] mb-12">Services</h2>
+		<h2 class="text-5xl font-bold text-blue-900 mb-4 text-center">Our Services</h2>
+		<p class="text-blue-800 text-center text-xl mb-12 max-w-3xl mx-auto">
+			Professional installations tailored to your needs with the highest industry standards
+		</p>
 
 		<div class="flex flex-col lg:flex-row gap-8">
 			<!-- Services Menu -->
 			<div class="lg:w-1/3">
-				<div class="space-y-2">
-					{#each services as service}
+				<div class="space-y-2 bg-white p-4 rounded-xl shadow-lg lg:sticky lg:top-10">
+					{#each services as service, index}
 						<button
-							class="w-full text-left p-4 rounded-md transition-all duration-300 flex items-center {service.id === activeServiceId ? 'bg-gradient-to-r from-[#2d5d94] to-[#4481c3] text-white shadow-md' : 'bg-white hover:bg-blue-50 text-gray-700'}"
-							on:click={() => setActiveService(service)}
+							class="w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-3 {
+								service.id === activeServiceId
+									? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-md transform scale-105'
+									: 'bg-white hover:bg-blue-50 text-gray-700 hover:shadow'
+							}"
+							on:click={() => setActiveService(service, index)}
 						>
-							<div class="w-1 h-12 {service.id === activeServiceId ? 'bg-blue-300' : 'bg-blue-200'} mr-3"></div>
-							<span class="font-medium">{service.shortTitle}</span>
+							<div class="flex items-center justify-center w-10 h-10 rounded-full {
+								service.id === activeServiceId ? 'bg-blue-300 text-blue-800' : 'bg-blue-100 text-blue-600'
+							}">
+								<span class="text-xl">{service.icon}</span>
+							</div>
+							<span class="font-medium text-lg">{service.shortTitle}</span>
 						</button>
 					{/each}
 				</div>
 			</div>
 
-			<!-- Image Carousel & Description -->
+			<!-- Image & Description -->
 			<div class="lg:w-2/3">
-				<div class="bg-white rounded-lg shadow-lg overflow-hidden">
-					<!-- Image Carousel -->
-					<div class="relative h-[400px] overflow-hidden">
-						{#each placeholderImages as image, i}
+				<div
+					class="bg-white rounded-2xl shadow-xl overflow-hidden transition-opacity duration-300 {
+						isTransitioning ? 'opacity-50' : 'opacity-100'
+					}"
+				>
+					<!-- Image Area with improved proportions -->
+					<div class="relative h-[500px] overflow-hidden">
+						<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
+						{#key activeServiceId}
 							<div
-								class="absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ease-in-out {currentImageIndex === i ? 'opacity-100 z-10' : 'opacity-0 z-0'}"
-								style="transform: scale({currentImageIndex === i ? zoomScale : 1}); transform-origin: center center;"
+								in:fade={{ duration: 500 }}
+								class="absolute top-0 left-0 w-full h-full transition-all duration-1000 ease-in-out"
+								style="transform: scale({zoomScale}); transform-origin: center center;"
 							>
-								<!-- Placeholder for actual images -->
-								<div class="w-full h-full flex items-center justify-center" style="background-color: {image.color};">
-									<div class="text-white text-2xl font-light">
-										<span>{activeService.title}</span>
-										<div class="text-sm mt-2">Image will be replaced with {image.name}</div>
-									</div>
-								</div>
+								<img
+									src={activeService.image}
+									alt={activeService.title}
+									class="w-full h-full object-cover"
+								/>
 							</div>
-						{/each}
-
-						<!-- Image slider controls -->
-						<div class="absolute bottom-4 right-4 flex space-x-2">
-							{#each placeholderImages as _, i}
-								<button
-									class="w-3 h-3 rounded-full transition-colors duration-300 {currentImageIndex === i ? 'bg-white' : 'bg-white/50'}"
-									on:click={() => {
-                    currentImageIndex = i;
-                    startZoomCycle();
-                  }}
-									aria-label="Go to image {i+1}"
-								></button>
-							{/each}
+						{/key}
+						<div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+							{#key activeServiceId}
+								<h3
+									in:fly={{ y: 20, duration: 500 }}
+									class="text-3xl font-bold text-white mb-2"
+								>
+									{activeService.title}
+								</h3>
+							{/key}
 						</div>
 					</div>
 
-					<!-- Description Box -->
-					<div class="p-6">
-						<!-- Title -->
-						<h3 class="text-xl font-bold text-[#2d5d94] mb-3">{activeService.title}</h3>
+					<!-- Description Box with improved styling -->
+					<div class="p-8">
+						{#key activeServiceId}
+							<div
+								in:fly={{ y: 20, duration: 500 }}
+								class="flex items-center gap-4 mb-6"
+							>
+								<div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-2xl">
+									{activeService.icon}
+								</div>
+								<h3 class="text-2xl font-bold text-blue-800">{activeService.title}</h3>
+							</div>
 
-						<!-- Description Text -->
-						<div class="text-gray-700">
-							<p>{activeService.description}</p>
+							<div class="text-gray-700 text-lg leading-relaxed">
+								<p>{activeService.description}</p>
+							</div>
+						{/key}
+
+						<div class="mt-8 flex justify-between items-center">
+							<button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+								Learn More
+							</button>
+
+							<div class="flex gap-2">
+								{#each services as _, idx}
+									<div
+										class="w-3 h-3 rounded-full {idx === activeIndex ? 'bg-blue-600' : 'bg-gray-300'}"
+									></div>
+								{/each}
+							</div>
 						</div>
 					</div>
 				</div>

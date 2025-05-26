@@ -1,4 +1,4 @@
 <script lang="ts">
-import Loader from '$lib/components/Loader/Loader.svelte';
+import Loader from '$lib/components/loader/Loader.svelte';
 </script>
 <Loader></Loader>

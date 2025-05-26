@@ -7,7 +7,7 @@
 </script>
 
 <footer class="w-full">
-	<div class="relative w-full h-auto md:h-64 bg-gradient-to-r bg-blue-600 flex items-center overflow-hidden py-8 md:py-0">
+	<div class="relative w-full h-auto md:h-64 bg-gradient-to-r from-blue-200 via-blue-300 to-orange-200 flex items-center overflow-hidden py-8 md:py-0">
 		<!-- Map Background - Hidden on Mobile -->
 		<div class="absolute right-0 top-0 w-full md:w-3/5 h-full hidden md:block">
 			<iframe
@@ -19,12 +19,12 @@
 				referrerpolicy="no-referrer-when-downgrade"
 				class="w-full h-full object-cover"
 			></iframe>
-			<div class="absolute inset-0 bg-white opacity-30"></div>
+			<div class="absolute inset-0 bg-black opacity-30"></div>
 		</div>
 
 		<div class="container mx-auto px-4 flex flex-col md:flex-row items-center relative z-10">
 			<!-- Contact Information -->
-			<div class="text-white mb-8 md:mb-0 text-center md:text-left">
+			<div class="text-gray-800 mb-8 md:mb-0 text-center md:text-left">
 				<h2 class="text-2xl font-bold mb-4">Contacts</h2>
 				<div class="mb-2">
 					<p class="text-sm mb-1">Support:</p>
@@ -37,7 +37,7 @@
 					<!-- Social Icons -->
 					<div class="flex mt-4 justify-center md:justify-start">
 						<!-- Viber Icon -->
-						<div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mr-2">
+						<div class="w-8 h-8 bg-purple-800 rounded-full flex items-center justify-center mr-2">
 							<span class="flex items-center justify-center">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="white" height="16px" width="16px" viewBox="0 0 52.511 52.511">
 									<g>
@@ -76,7 +76,7 @@
 			<div class="hidden md:block h-32 w-1 bg-amber-500 mx-4"></div>
 
 			<!-- Right Content - Address -->
-			<div class="text-white text-center md:text-left mb-8 md:mb-0">
+			<div class="text-gray-800 text-center md:text-left mb-8 md:mb-0">
 				<p class="text-sm mb-1">  Address </p>
 				<div
 					class="cursor-pointer hover:underline"
@@ -89,15 +89,15 @@
 
 			<!-- Logo on Map - Visible only on desktop -->
 			<div class="absolute cursor-pointer right-12 top-1/2 transform -translate-y-1/2 hidden lg:block">
-				<div class="bg-blue-200 p-3 rounded-lg shadow-lg relative">
+				<div class="bg-white bg-opacity-90 p-3 rounded-lg shadow-lg relative">
 					<div class="w-20 h-20 flex items-center justify-center">
-						<div class="text-xl text-white font-bold">
+						<div class="text-xl text-gray-800 font-bold">
 							<span class="block text-center">SRA</span>
 							<span class="block text-xs text-center">ENGINEERING</span>
 						</div>
 					</div>
 					<!-- Pointer Triangle -->
-					<div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-t-blue-200 border-l-transparent border-r-transparent"></div>
+					<div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-t-white border-l-transparent border-r-transparent"></div>
 				</div>
 			</div>
 		</div>

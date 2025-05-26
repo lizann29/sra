@@ -10,7 +10,7 @@
 
 		<!-- Logo -->
 		<div class="flex justify-center mb-8 ">
-			<img src="/logo/sra.svg" alt="SRA Engineering Logo" class="h-20" />
+			<img src="logo/sra.png" alt="SRA Engineering Logo" class="h-20" />
 		</div>
 
 		<!-- Form -->

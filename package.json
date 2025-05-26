@@ -14,7 +14,7 @@
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"deploy": "npm run build && touch build/.nojekyll && npx gh-pages -d build"
+		"deploy": "npm run build && touch build/.nojekyll && npx gh-pages -d build -t true"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

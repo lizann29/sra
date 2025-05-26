@@ -8,10 +8,16 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html'
+			fallback: undefined, // Remove fallback for GitHub Pages
+			precompress: false,
+			strict: true
 		}),
 		paths: {
-			base: '/sra'
+			base: process.env.NODE_ENV === 'production' ? '/sra' : ''
+		},
+		prerender: {
+			handleHttpError: 'warn',
+			handleMissingId: 'warn'
 		}
 	}
 };
